@@ -23,7 +23,7 @@ const categories = [
   {
     id: 'Setup',
     children: [
-      { id: 'Dashboard', icon: <PeopleIcon />, route: '/' },
+      { id: 'Dashboard', icon: <PeopleIcon />, route: '/dashboard' },
       { id: 'Setting', icon: <SettingsIcon />, route: '/setting' },
 
 

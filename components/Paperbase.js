@@ -8,6 +8,7 @@ import Link from '@mui/material/Link';
 import Navigator from './Navigator';
 import Content from './Content';
 import Header from './Header';
+import { AuthProvider } from '../context/authContext';
 
 let theme = createTheme({
   palette: {
@@ -187,10 +188,10 @@ export default function Paperbase({ children }) {
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, bgcolor: '#eaeff1' }}>
-             {children}
+            {children}
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
-           
+
           </Box>
         </Box>
       </Box>

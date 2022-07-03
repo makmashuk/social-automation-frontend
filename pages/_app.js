@@ -1,11 +1,19 @@
 
+
 import '../styles/globals.scss'
+import { AuthProvider } from '../context/authContext';
 
 function MyApp({ Component, pageProps }) {
   // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout || ((page) => page)
+  const getLayout = Component.getLayout || ((page) => page);
 
-  return getLayout(<Component {...pageProps} />)
+
+  return (
+    <AuthProvider>
+      {getLayout(<Component {...pageProps} />)}
+    </AuthProvider>
+  )
+
 }
 
 export default MyApp

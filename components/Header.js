@@ -9,17 +9,24 @@ import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { AuthContext } from '../context/authContext';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 function Header(props) {
   const { onDrawerToggle } = props;
+  const {logout} = React.useContext(AuthContext);
+  
 
+  const handelLogout = () =>{
+    logout();
+  }
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -37,21 +44,11 @@ function Header(props) {
             </Grid>
             <Grid item xs />
             <Grid item>
-              <Link
-                href="/"
-                variant="body2"
-                sx={{
-                  textDecoration: 'none',
-                  color: lightColor,
-                  '&:hover': {
-                    color: 'common.white',
-                  },
-                }}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Go to docs
-              </Link>
+            <Tooltip title="Logout">
+                <IconButton color="inherit" onClick={handelLogout}>
+                  <LogoutIcon  />
+                </IconButton>
+              </Tooltip>
             </Grid>
             <Grid item>
               <Tooltip title="Alerts • No alerts">
@@ -62,7 +59,7 @@ function Header(props) {
             </Grid>
             <Grid item>
               <IconButton color="inherit" sx={{ p: 0.5 }}>
-                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
+                <Avatar src="" alt="My Avatar" />
               </IconButton>
             </Grid>
           </Grid>
