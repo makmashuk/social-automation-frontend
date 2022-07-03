@@ -1,0 +1,28 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.channelCard{
+    appearance: none;
+    align-items: center;
+    max-width: 30%;
+    color: rgb(119, 121, 122);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 0 0 auto;
+    min-width: 12rem;
+    transition-property: background-color, border-color, color;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in;
+    user-select: none;
+    padding: 2rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
+    border: 1px solid rgb(184, 184, 184);
+}
