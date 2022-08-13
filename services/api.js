@@ -1,8 +1,10 @@
+
 import axios from 'axios';
- 
+
+
 const apiClient = axios.create({
-    baseURL: 'http://localhost:8000',
-    withCredentials: true,
+    baseURL: 'https://social.thetanvir.com/api'
 });
- 
-export default apiClient;
+
+export default apiClient ;
+

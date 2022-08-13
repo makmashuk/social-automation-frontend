@@ -14,21 +14,34 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { AuthContext } from '../context/authContext';
 import { useEffect } from 'react';
+import { useState } from 'react';
+import LoadingButton from '@mui/lab/LoadingButton';
+import Alert from '@mui/material/Alert';
 
 export default function Login() {
 
-  const { isLoggedIn, login } = React.useContext(AuthContext);
+  const { isLoggedIn, login, responseError } = React.useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("admin@example.com");
+  const [password, setPassword] = useState("123456");
 
-  const handleSubmit = (event) => {
+  const handleLoginClick = (event) => {
+    setLoading(true);
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const data = new FormData();
+    data.append("email", email);
+    data.append("password", password);
+   
     login(data);
-
+    
   };
 
   useEffect(() => {
-    console.log(isLoggedIn);
-  }, [isLoggedIn]);
+    if(responseError){
+      console.log(email);
+      setLoading(false);
+    }
+  }, [responseError]);
 
 
   return (
@@ -48,7 +61,8 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        
+        <Box component="form" noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
@@ -58,7 +72,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
-            value={"admin@example.com"}
+            onChange={e => setEmail(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -68,21 +82,23 @@ export default function Login() {
             label="Password"
             type="password"
             id="password"
+            onChange={e => setPassword(e.target.value)}
             autoComplete="current-password"
-            value={"123456"}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
-            type="submit"
+          { responseError && <Alert fullwidth="true" severity="error">{responseError}</Alert>}
+          <LoadingButton
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={handleLoginClick}
+            loading={loading}
           >
-            Sign In
-          </Button>
+            Login 
+          </LoadingButton>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">

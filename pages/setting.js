@@ -17,8 +17,7 @@ export default function Setting() {
             }}
         >
             <ChannelCard/>
-            <ChannelCard/>
-            <ChannelCard/>
+          
             {/* <ChannelCard/> */}
         </Box>
     )

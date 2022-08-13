@@ -10,37 +10,31 @@ const AuthContext = React.createContext({
     isLoggedIn: false,
 });
 
-
-
-
 // eslint-disable-next-line react/prop-types
 function AuthProvider({ children }) {
 
     const [user, setUser] = useLocalStorage("user", {});
     const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", false);
+    const [token, setToken] = useLocalStorage("token", null);
+    const [responseError, setResponseError] = useState();
 
     const router = useRouter();
 
     const login = (data) => {
-        // console.log(data);
-        apiClient.get('/sanctum/csrf-cookie')
-            .then(response => {
-                if (response.status === 204) {
-                    handleUser(data);
-                }
-            })
-            .catch(e => {
-                console.log(e);
-            })
+        setResponseError(null);
+        handleUser(data);
     };
     const handleUser = async (data) => {
         if (!isLoggedIn) {
-            let res = await apiClient.post('/login', data);
+            const user = await apiClient.post('/login', data);
+            const token = user.data.data.token;
             setIsLoggedIn(true);
-            localStorage.setItem('isLoggedIn', true);
-            apiClient.get('/api/user', data).then(response => {
-                setUser(response.data);
-            });
+            setUser(user.data.data);
+            console.log(token);
+            setToken(token);
+            router.push('/dashboard');
+        }
+        else{
             router.push('/dashboard');
         }
         
@@ -49,17 +43,11 @@ function AuthProvider({ children }) {
 
     };
     const logout = () => {
-        apiClient.post('/logout')
-            .then(response => {
-                setIsLoggedIn(false);
-                setUser({});
-                localStorage.setItem('isLoggedIn', false);
-                localStorage.setItem('user', JSON.stringify({}));
-                router.push('/login');
-            })
-            .catch(e => {
-                console.log(e);
-            })
+
+        setIsLoggedIn(false);
+        setUser({});
+        setToken(null);
+        router.push('/');
     }
 
 
@@ -68,7 +56,8 @@ function AuthProvider({ children }) {
         user,
         login,
         logout,
-        isLoggedIn
+        isLoggedIn,
+        responseError
     };
     // console.log(sharedData);
     return (
