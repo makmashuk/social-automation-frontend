@@ -25,8 +25,13 @@ const categories = [
     children: [
       { id: 'Dashboard', icon: <PeopleIcon />, route: '/dashboard' },
       { id: 'Setting', icon: <SettingsIcon />, route: '/setting' },
-
-
+    ],
+  },
+  {
+    id: 'Facebook',
+    children: [
+      { id: 'Facebook', icon: <PeopleIcon />, route: '/facebook' },
+      { id: 'Create Post', icon: <SettingsIcon />, route: '/facebook/create-post' },
     ],
   },
   // {
